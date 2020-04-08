@@ -24,7 +24,6 @@ const cronSchedule = "*/5 * * * * *";
     process.exit(0);
   }
   cron.schedule(cronSchedule, async () => {
-    console.log("Start");
     try {
       const article: Article = await fetchPost(postId);
       await update(apiKey, postId, article);

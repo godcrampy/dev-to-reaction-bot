@@ -1,6 +1,6 @@
 # Dev.to Reaction Count Bot
 
-This bot constantly updates the title of a dev.to post with the current positive reaction count.
+This bot constantly updates the title of a dev.to [post](https://dev.to/godcrampy/this-post-has-0-positive-reactions-2882) with the current positive reaction count.
 
 ## Usage
 
