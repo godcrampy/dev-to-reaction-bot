@@ -1,15 +1,20 @@
 import chalk from "chalk";
 import fetch from "node-fetch";
+import { baseURL } from "./app";
 
-export default async function update(apiKey: string, postId: string, article: Object) {
-  const baseURL: string = "https://dev.to/api";
+export default async function update(apiKey: string, postId: string, article: Article) {
+  const title: string = `This Post has ${article.positive_reactions_count} Positive Reactions`;
   const res = await fetch(`${baseURL}/articles/${postId}`, {
     headers: {
       "api-key": apiKey.trim(),
       "Content-Type": "application/json",
     },
     method: "PUT",
-    body: JSON.stringify(article),
+    body: JSON.stringify({
+      article: {
+        title,
+      },
+    }),
   });
 
   if (!res.ok) {

@@ -2,6 +2,9 @@ import process from "process";
 import chalk from "chalk";
 import initialise from "./initialise";
 import update from "./update";
+import fetchPost from "./fetch-post";
+
+export const baseURL: string = "https://dev.to/api";
 
 (async () => {
   // IIFE Used to get async/await on top level
@@ -18,13 +21,10 @@ import update from "./update";
     await initialise(process.argv[3]);
     process.exit(0);
   }
-
-  await update(apiKey, postId, {
-    article: {
-      title: "This Post has 1 Positive Reactions",
-      published: false,
-      body_markdown: "Script Status: Not Running\n",
-    },
-    // eslint-disable-next-line no-unused-vars
-  });
+  try {
+    const article: Article = await fetchPost(postId);
+    await update(apiKey, postId, article);
+  } catch (error) {
+    console.log(error);
+  }
 })();

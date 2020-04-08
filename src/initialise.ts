@@ -2,6 +2,13 @@ import chalk from "chalk";
 import fetch from "node-fetch";
 
 export default async function initialise(apiKey: string) {
+  const article: Post = {
+    title: "This Post has 0 Positive Reactions",
+    published: false,
+    body_markdown: "Script Status: Not Running\n",
+    tags: ["discuss", "help"],
+  };
+
   const baseURL: string = "https://dev.to/api";
   const res = await fetch(`${baseURL}/articles`, {
     headers: {
@@ -10,12 +17,7 @@ export default async function initialise(apiKey: string) {
     },
     method: "POST",
     body: JSON.stringify({
-      article: {
-        title: "This Post has 0 Positive Reactions",
-        published: false,
-        body_markdown: "Script Status: Not Running\n",
-        tags: ["discuss", "help"],
-      },
+      article,
     }),
   });
 
