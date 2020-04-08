@@ -3,8 +3,10 @@ import chalk from "chalk";
 import initialise from "./initialise";
 import update from "./update";
 import fetchPost from "./fetch-post";
+import cron from "node-cron";
 
 export const baseURL: string = "https://dev.to/api";
+const cronSchedule = "*/5 * * * * *";
 
 (async () => {
   // IIFE Used to get async/await on top level
@@ -21,10 +23,13 @@ export const baseURL: string = "https://dev.to/api";
     await initialise(process.argv[3]);
     process.exit(0);
   }
-  try {
-    const article: Article = await fetchPost(postId);
-    await update(apiKey, postId, article);
-  } catch (error) {
-    console.log(error);
-  }
+  cron.schedule(cronSchedule, async () => {
+    console.log("Start");
+    try {
+      const article: Article = await fetchPost(postId);
+      await update(apiKey, postId, article);
+    } catch (error) {
+      console.log(error);
+    }
+  });
 })();
