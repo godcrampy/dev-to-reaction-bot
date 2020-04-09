@@ -24,10 +24,16 @@ const cronSchedule = "*/5 * * * * *";
     await initialise(process.argv[3]);
     process.exit(0);
   }
+  let reactions: number = (await fetchPost(postId)).positive_reactions_count;
+  console.log(chalk.bold.green("Running Cron Job"));
   cron.schedule(cronSchedule, async () => {
     try {
       const article: Article = await fetchPost(postId);
-      await update(apiKey, postId, article);
+      if (article.positive_reactions_count !== reactions) {
+        console.log(chalk.bold.green("Updated"));
+        await update(apiKey, postId, article);
+        reactions = article.positive_reactions_count;
+      }
     } catch (error) {
       console.log(error);
     }
