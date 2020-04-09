@@ -6,6 +6,9 @@
   "repository": "https://github.com/godcrampy/dev-to-reaction-bot.git",
   "author": "Sahil <sahilbondre@gmail.com>",
   "license": "MIT",
+  "bin" : {
+    "dev-to-bot": "./dist/app.js"
+  },
   "scripts": {
     "watch": "tsc -w",
     "build": "tsc",
