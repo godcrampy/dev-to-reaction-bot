@@ -22,5 +22,9 @@ export default async function update(apiKey: string, postId: string, article: Ar
     return;
   }
 
-  console.log(chalk.bold.green(`Post updated: `) + new Date().toLocaleString());
+  console.log(
+    chalk.bold.green(`Post updated: `) +
+      new Date().toLocaleString() +
+      chalk.green(` ${article.positive_reactions_count} Reactions`)
+  );
 }
